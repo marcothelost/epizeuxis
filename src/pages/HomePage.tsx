@@ -16,8 +16,6 @@ export const HomePage: React.FC = () => {
   );
   const dispatch = useDispatch();
 
-  console.log(executables);
-
   return (
     <React.Fragment>
       <PageSidebar />

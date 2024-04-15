@@ -6,6 +6,8 @@ import { NotFoundPage } from '@pages/NotFoundPage';
 
 import { AppRoute } from '@utils/route';
 
+import '@styles/main.css';
+
 export const App: React.FC = () => (
   <Routes>
     <Route path={AppRoute.HOME} element={<HomePage />} />
