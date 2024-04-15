@@ -4,22 +4,27 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 import type { Executable } from '@typings/file';
 
-interface InitialStateDefaultObject {
+export interface InitialStateDefaultObject {
+  projectName: string;
   executables: Executable[];
   sourceFiles: string[];
   headerDirectories: string[];
 }
 
 const INITIAL_STATE: InitialStateDefaultObject = {
+  projectName: 'project',
   executables: [],
   sourceFiles: [],
   headerDirectories: [],
 };
 
-export const fileSlice = createSlice({
-  name: 'file',
+export const projectSlice = createSlice({
+  name: 'project',
   initialState: INITIAL_STATE,
   reducers: {
+    setProjectName: (state, action: PayloadAction<string>) => {
+      state.projectName = action.payload;
+    },
     addExecutable: (state, action: PayloadAction<string>) => {
       state.executables.push({
         name: action.payload,
@@ -93,6 +98,7 @@ export const fileSlice = createSlice({
   },
 });
 export const {
+  setProjectName,
   addExecutable,
   removeExecutable,
   addSourceFile,
@@ -101,4 +107,4 @@ export const {
   removeHeaderDirectory,
   updateSourceFileLinking,
   updateHeaderDirectoryLinking,
-} = fileSlice.actions;
+} = projectSlice.actions;

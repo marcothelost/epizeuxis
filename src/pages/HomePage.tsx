@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { DefaultLayout } from '@layouts/DefaultLayout';
@@ -8,15 +8,25 @@ import { Button } from '@components/elements/Button';
 import {
   updateSourceFileLinking,
   updateHeaderDirectoryLinking,
-} from '@store/slices/file';
+} from '@store/slices/project';
+
+import { generateCmakeConfig } from '@utils/cmake';
 
 import type { RootState } from '@store/base';
 
 export const HomePage: React.FC = () => {
-  const { executables, sourceFiles, headerDirectories } = useSelector(
-    (store: RootState) => store.file
-  );
+  const resultRef = useRef<HTMLTextAreaElement | null>(null);
+  const projectState = useSelector((store: RootState) => store.project);
+  const { executables, sourceFiles, headerDirectories } = projectState;
   const dispatch = useDispatch();
+
+  const handleGenerate = () => {
+    if (!resultRef.current) {
+      return;
+    }
+    const result = generateCmakeConfig(projectState);
+    resultRef.current.value = result;
+  };
 
   return (
     <DefaultLayout>
@@ -62,7 +72,7 @@ export const HomePage: React.FC = () => {
           ))}
         </div>
       ))}
-      <Button text="Generate" />
+      <Button text="Generate" onClick={handleGenerate} />
       <br />
       <textarea
         className="rounded border border-gray-300"
@@ -70,6 +80,7 @@ export const HomePage: React.FC = () => {
         rows={20}
         style={{ resize: 'none' }}
         readOnly
+        ref={resultRef}
       ></textarea>
     </DefaultLayout>
   );

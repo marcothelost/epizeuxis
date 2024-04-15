@@ -9,7 +9,7 @@ import {
   removeSourceFile,
   addHeaderDirectory,
   removeHeaderDirectory,
-} from '@store/slices/file';
+} from '@store/slices/project';
 
 import { AppRoute } from '@utils/route';
 
@@ -17,7 +17,7 @@ import type { RootState } from '@store/base';
 
 export const PageSidebar: React.FC = () => {
   const { executables, sourceFiles, headerDirectories } = useSelector(
-    (store: RootState) => store.file
+    (store: RootState) => store.project
   );
   const dispatch = useDispatch();
 
