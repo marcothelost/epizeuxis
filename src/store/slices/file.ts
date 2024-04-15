@@ -2,8 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import type { PayloadAction } from '@reduxjs/toolkit';
 
+import type { Executable } from '@typings/file';
+
 interface InitialStateDefaultObject {
-  executables: string[];
+  executables: Executable[];
   sourceFiles: string[];
   headerDirectories: string[];
 }
@@ -19,11 +21,15 @@ export const fileSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     addExecutable: (state, action: PayloadAction<string>) => {
-      state.executables.push(action.payload);
+      state.executables.push({
+        name: action.payload,
+        sourceFiles: [],
+        headerDirectories: [],
+      });
     },
     removeExecutable: (state, action: PayloadAction<string>) => {
       state.executables = state.executables.filter(
-        (executable) => executable !== action.payload
+        (executable) => executable.name !== action.payload
       );
     },
     addSourceFile: (state, action: PayloadAction<string>) => {
@@ -42,6 +48,48 @@ export const fileSlice = createSlice({
         (headerDirectory) => headerDirectory !== action.payload
       );
     },
+    updateSourceFileLinking: (
+      state,
+      action: PayloadAction<{
+        executableName: Executable['name'];
+        sourceFile: string;
+        isAdding: boolean;
+      }>
+    ) => {
+      state.executables.map((executable) => {
+        if (executable.name !== action.payload.executableName) {
+          return executable;
+        }
+        action.payload.isAdding
+          ? executable.sourceFiles.push(action.payload.sourceFile)
+          : executable.sourceFiles.splice(
+              executable.sourceFiles.indexOf(action.payload.sourceFile),
+              1
+            );
+        return executable;
+      });
+    },
+    updateHeaderDirectoryLinking: (
+      state,
+      action: PayloadAction<{
+        executableName: Executable['name'];
+        directory: string;
+        isAdding: boolean;
+      }>
+    ) => {
+      state.executables.map((executable) => {
+        if (executable.name !== action.payload.executableName) {
+          return executable;
+        }
+        action.payload.isAdding
+          ? executable.headerDirectories.push(action.payload.directory)
+          : executable.headerDirectories.splice(
+              executable.headerDirectories.indexOf(action.payload.directory),
+              1
+            );
+        return executable;
+      });
+    },
   },
 });
 export const {
@@ -51,4 +99,6 @@ export const {
   removeSourceFile,
   addHeaderDirectory,
   removeHeaderDirectory,
+  updateSourceFileLinking,
+  updateHeaderDirectoryLinking,
 } = fileSlice.actions;

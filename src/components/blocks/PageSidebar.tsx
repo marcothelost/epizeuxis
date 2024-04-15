@@ -20,7 +20,11 @@ export const PageSidebar: React.FC = () => {
 
   const handleAddExecutable = () => {
     const executable = String(window.prompt());
-    if (executables.includes(executable)) {
+    if (
+      executables.some(
+        (testedExecutable) => testedExecutable.name === executable
+      )
+    ) {
       alert('This executable already exists!');
       return;
     }
@@ -57,8 +61,10 @@ export const PageSidebar: React.FC = () => {
         <ul>
           {executables.map((executable, index) => (
             <li key={index}>
-              <span>{executable}</span>&nbsp;&nbsp;
-              <button onClick={() => dispatch(removeExecutable(executable))}>
+              <span>{executable.name}</span>&nbsp;&nbsp;
+              <button
+                onClick={() => dispatch(removeExecutable(executable.name))}
+              >
                 Remove
               </button>
             </li>
