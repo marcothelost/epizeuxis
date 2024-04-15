@@ -6,6 +6,8 @@ import { NotFoundPage } from '@pages/NotFoundPage';
 
 import { AppRoute } from '@utils/route';
 
+import 'typicons.font/src/font/typicons.css';
+
 import '@styles/main.css';
 
 export const App: React.FC = () => (

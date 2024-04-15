@@ -54,54 +54,75 @@ export const PageSidebar: React.FC = () => {
   };
 
   return (
-    <aside>
-      <h2>Sidebar</h2>
-      <h3>Executables</h3>
+    <aside className="flex h-screen w-56 flex-col border-r border-gray-300 p-4">
+      <h2 className="mb-4">Epizeuxis</h2>
+      <div className="align-center flex">
+        <h3 className="flex items-center gap-1">
+          <span className="typcn typcn-point-of-interest-outline"></span>
+          <span>Executables</span>
+        </h3>
+        <button onClick={handleAddExecutable} className="ml-auto">
+          <span className="typcn typcn-plus"></span>
+        </button>
+      </div>
       {executables.length ? (
         <ul>
           {executables.map((executable, index) => (
             <li key={index}>
-              <span>{executable.name}</span>&nbsp;&nbsp;
+              <span>{executable.name}</span>
               <button
                 onClick={() => dispatch(removeExecutable(executable.name))}
               >
-                Remove
+                <span className="typcn typcn-times"></span>
               </button>
             </li>
           ))}
         </ul>
       ) : null}
-      <button onClick={handleAddExecutable}>Add</button>
-      <h3>Source Files</h3>
+      <div className="align-center flex">
+        <h3 className="flex items-center gap-1">
+          <span className="typcn typcn-document"></span>
+          <span>Source Files</span>
+        </h3>
+        <button onClick={handleAddSourceFile} className="ml-auto">
+          <span className="typcn typcn-plus"></span>
+        </button>
+      </div>
       {sourceFiles.length ? (
         <ul>
           {sourceFiles.map((sourceFile, index) => (
             <li key={index}>
-              <span>{sourceFile}</span>&nbsp;&nbsp;
+              <span>{sourceFile}</span>
               <button onClick={() => dispatch(removeSourceFile(sourceFile))}>
-                Remove
+                <span className="typcn typcn-times"></span>
               </button>
             </li>
           ))}
         </ul>
       ) : null}
-      <button onClick={handleAddSourceFile}>Add</button>
-      <h3>Header Directories</h3>
+      <div className="align-center flex">
+        <h3 className="flex items-center gap-1">
+          <span className="typcn typcn-folder"></span>
+          <span>Header Directories</span>
+        </h3>
+        <button onClick={handleAddHeaderDirectory} className="ml-auto">
+          <span className="typcn typcn-plus"></span>
+        </button>
+      </div>
       {headerDirectories.length ? (
         <ul>
           {headerDirectories.map((directory, index) => (
             <li key={index}>
-              <span>{directory}</span>&nbsp;&nbsp;
+              <span>{directory}</span>
               <button
                 onClick={() => dispatch(removeHeaderDirectory(directory))}
               >
-                Remove
+                <span className="typcn typcn-times"></span>
               </button>
             </li>
           ))}
         </ul>
       ) : null}
-      <button onClick={handleAddHeaderDirectory}>Add</button>
     </aside>
   );
 };

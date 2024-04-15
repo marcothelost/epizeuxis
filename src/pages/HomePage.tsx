@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { PageSidebar } from '@components/blocks/PageSidebar';
+import { Button } from '@components/elements/Button';
 
 import {
   updateSourceFileLinking,
@@ -61,11 +62,10 @@ export const HomePage: React.FC = () => {
           ))}
         </div>
       ))}
-      <br />
-      <button>Generate</button>
-      <br />
+      <Button text="Generate" />
       <br />
       <textarea
+        className="rounded border border-gray-300"
         cols={30}
         rows={10}
         style={{ resize: 'none' }}
