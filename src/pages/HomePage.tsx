@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { PageSidebar } from '@components/blocks/PageSidebar';
+import { DefaultLayout } from '@layouts/DefaultLayout';
+
 import { Button } from '@components/elements/Button';
 
 import {
@@ -18,8 +19,7 @@ export const HomePage: React.FC = () => {
   const dispatch = useDispatch();
 
   return (
-    <React.Fragment>
-      <PageSidebar />
+    <DefaultLayout>
       <h1>Executables</h1>
       {executables.map((executable) => (
         <div key={executable.name}>
@@ -66,11 +66,11 @@ export const HomePage: React.FC = () => {
       <br />
       <textarea
         className="rounded border border-gray-300"
-        cols={30}
-        rows={10}
+        cols={40}
+        rows={20}
         style={{ resize: 'none' }}
         readOnly
       ></textarea>
-    </React.Fragment>
+    </DefaultLayout>
   );
 };

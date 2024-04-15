@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import {
   addExecutable,
@@ -9,6 +10,8 @@ import {
   addHeaderDirectory,
   removeHeaderDirectory,
 } from '@store/slices/file';
+
+import { AppRoute } from '@utils/route';
 
 import type { RootState } from '@store/base';
 
@@ -56,68 +59,85 @@ export const PageSidebar: React.FC = () => {
   return (
     <aside className="flex h-screen w-56 flex-col border-r border-gray-300 p-4">
       <h2 className="mb-4">Epizeuxis</h2>
-      <div className="align-center flex">
+      <ul className="mb-4 flex flex-col gap-1">
+        <li>
+          <Link className="flex items-center gap-1" to={AppRoute.HOME}>
+            <span className="typcn typcn-home-outline flex"></span>
+            <span>Home</span>
+          </Link>
+        </li>
+        <li>
+          <Link
+            className="flex items-center gap-1"
+            to={AppRoute.PROJECT_SETTINGS}
+          >
+            <span className="typcn typcn-cog-outline flex"></span>
+            <span>Project Settings</span>
+          </Link>
+        </li>
+      </ul>
+      <div className="flex items-center">
         <h3 className="flex items-center gap-1">
-          <span className="typcn typcn-point-of-interest-outline"></span>
+          <span className="typcn typcn-point-of-interest-outline flex"></span>
           <span>Executables</span>
         </h3>
         <button onClick={handleAddExecutable} className="ml-auto">
-          <span className="typcn typcn-plus"></span>
+          <span className="typcn typcn-plus flex"></span>
         </button>
       </div>
       {executables.length ? (
-        <ul>
+        <ul className="pl-2">
           {executables.map((executable, index) => (
             <li key={index}>
               <span>{executable.name}</span>
               <button
                 onClick={() => dispatch(removeExecutable(executable.name))}
               >
-                <span className="typcn typcn-times"></span>
+                <span className="typcn typcn-times flex"></span>
               </button>
             </li>
           ))}
         </ul>
       ) : null}
-      <div className="align-center flex">
+      <div className="flex items-center">
         <h3 className="flex items-center gap-1">
-          <span className="typcn typcn-document"></span>
+          <span className="typcn typcn-document flex"></span>
           <span>Source Files</span>
         </h3>
         <button onClick={handleAddSourceFile} className="ml-auto">
-          <span className="typcn typcn-plus"></span>
+          <span className="typcn typcn-plus flex"></span>
         </button>
       </div>
       {sourceFiles.length ? (
-        <ul>
+        <ul className="pl-2">
           {sourceFiles.map((sourceFile, index) => (
             <li key={index}>
               <span>{sourceFile}</span>
               <button onClick={() => dispatch(removeSourceFile(sourceFile))}>
-                <span className="typcn typcn-times"></span>
+                <span className="typcn typcn-times flex"></span>
               </button>
             </li>
           ))}
         </ul>
       ) : null}
-      <div className="align-center flex">
+      <div className="flex items-center">
         <h3 className="flex items-center gap-1">
-          <span className="typcn typcn-folder"></span>
+          <span className="typcn typcn-folder flex"></span>
           <span>Header Directories</span>
         </h3>
         <button onClick={handleAddHeaderDirectory} className="ml-auto">
-          <span className="typcn typcn-plus"></span>
+          <span className="typcn typcn-plus flex"></span>
         </button>
       </div>
       {headerDirectories.length ? (
-        <ul>
+        <ul className="pl-2">
           {headerDirectories.map((directory, index) => (
             <li key={index}>
               <span>{directory}</span>
               <button
                 onClick={() => dispatch(removeHeaderDirectory(directory))}
               >
-                <span className="typcn typcn-times"></span>
+                <span className="typcn typcn-times flex"></span>
               </button>
             </li>
           ))}

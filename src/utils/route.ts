@@ -5,5 +5,6 @@
  */
 export enum AppRoute {
   HOME = '/',
+  PROJECT_SETTINGS = '/project',
   NOT_FOUND = '*',
 }

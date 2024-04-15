@@ -2,9 +2,8 @@ import React from 'react';
 
 import { DefaultLayout } from '@layouts/DefaultLayout';
 
-export const NotFoundPage: React.FC = () => (
+export const ProjectSettingsPage: React.FC = () => (
   <DefaultLayout>
-    <h1>Error 404</h1>
-    <p>Page not found.</p>
+    <h1>Project Settings</h1>
   </DefaultLayout>
 );
